@@ -1,8 +1,5 @@
 # BillplzAPI #
 
-## Usage ##
-
-
 ### Initialization ###
 
 ```PHP
@@ -36,3 +33,37 @@ catch (Billplz_Exception $e)
 
 ```
 
+### Get Bill ###
+
+```PHP
+
+try
+{
+    $bill_id = '6wIiIuho';
+    $result = $billplzAPI->getBill($bill_id);
+    var_dump($result);
+}
+catch (Billplz_Exception $e)
+{
+    echo $e->getType().' | '.$e->getMessage().PHP_EOL;
+}
+
+```
+
+
+### Delete Bill ###
+
+```PHP
+
+try
+{
+    $bill_id = '6wIiIuho';
+    $result = $billplzAPI->deleteBill($bill_id);
+    var_dump($result);
+}
+catch (Billplz_Exception $e)
+{
+    echo $e->getType().' | '.$e->getMessage().PHP_EOL;
+}
+
+```
