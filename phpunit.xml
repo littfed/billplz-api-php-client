@@ -1,0 +1,7 @@
+<phpunit bootstrap="autoload.php">
+    <testsuites>
+        <testsuite name="Billplz-API-PHP-Client">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
