@@ -14,15 +14,15 @@ class Billplz_API {
     /**
      * @var string
      */
-    protected $apiEndpoint = 'https://www.billplz.com/api/v2/';
+    protected $apiEndpoint = 'https://www.billplz.com/api/v3/';
 
     /**
      * @var string
      */
-    protected $apiSandboxEndpointUrl = 'https://billplz-staging.herokuapp.com/api/v2/';
+    protected $apiSandboxEndpointUrl = 'https://billplz-staging.herokuapp.com/api/v3/';
 
     /**
-     * @var BillplzAPIHttpRequest
+     * @var Billplz_HttpRequest
      */
     protected $httpRequest;
 
@@ -99,6 +99,20 @@ class Billplz_API {
     }
 
     /**
+     * @param $title
+     * @param array $optional
+     * @return mixed
+     * @throws Billplz_Exception
+     */
+    public function createCollection($title, array $optional = array())
+    {
+        $data['title'] = $title;
+        $data = $data + $optional;
+
+        return $this->request('POST', 'collections', $data);
+    }
+
+    /**
      * @param $collection_id
      * @param string $email
      * @param string $name
@@ -107,12 +121,13 @@ class Billplz_API {
      * @return mixed
      * @throws Billplz_Exception
      */
-    public function createBill($collection_id, $email, $name, $amount, array $optional = array())
+    public function createBill($collection_id, $email, $name, $amount, $description, array $optional = array())
     {
         $data['collection_id']  = $collection_id;
         $data['email']          = $email;
         $data['name']           = $name;
         $data['amount']         = $amount;
+        $data['description']    = $description;
         $data['callback_url']   = $this->callbackUrl;
         $data = $data + $optional;
 
@@ -157,7 +172,6 @@ class Billplz_API {
      */
     private function request($method, $path, $data = NULL)
     {
-
         $response = $this->httpRequest
             ->setUrl($this->apiEndpoint.$path)
             ->setMethod($method)
